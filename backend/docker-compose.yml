@@ -1,0 +1,28 @@
+services:
+  db:
+    image: postgres:16
+    container_name: smartfisio_db
+    environment:
+      POSTGRES_DB: smartfisio
+      POSTGRES_USER: smartfisio
+      POSTGRES_PASSWORD: smartfisio
+    ports:
+      - "5432:5432"
+    volumes:
+      - smartfisio_pgdata:/var/lib/postgresql/data
+
+  api:
+    build: .
+    container_name: smartfisio_api
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgresql+psycopg2://smartfisio:smartfisio@db:5432/smartfisio
+      SECRET_KEY: troque-esta-chave-em-producao
+      ACCESS_TOKEN_EXPIRE_MINUTES: 1440
+      CORS_ORIGINS: http://localhost:5173,http://localhost:3000
+    ports:
+      - "8000:8000"
+
+volumes:
+  smartfisio_pgdata:
