@@ -1,26 +1,6 @@
--- =====================================================
--- SmartFisio - Script de Criação de Tabelas (PostgreSQL)
--- =====================================================
--- Este script cria todas as tabelas necessárias para o
--- funcionamento do sistema SmartFisio.
---
--- NOTA: As tabelas são criadas automaticamente pelo ORM
--- (SQLAlchemy) ao iniciar o backend. Este script serve
--- como referência e documentação do esquema do banco.
---
--- Pré-requisito: Criar o banco e o usuário:
---   CREATE USER smartfisio WITH PASSWORD 'smartfisio';
---   CREATE DATABASE smartfisio OWNER smartfisio;
--- =====================================================
 
--- Habilitar extensão para UUIDs (necessário no PostgreSQL < 13)
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
--- =====================================================
--- 1. TABELA: users
--- Armazena os dados dos usuários do sistema.
--- Papéis possíveis: IDOSO, FISIOTERAPEUTA, ADMIN
--- =====================================================
 CREATE TABLE IF NOT EXISTS users (
     id              UUID            PRIMARY KEY DEFAULT uuid_generate_v4(),
     name            VARCHAR(120)    NOT NULL,
@@ -33,21 +13,12 @@ CREATE TABLE IF NOT EXISTS users (
 
 CREATE INDEX IF NOT EXISTS ix_users_email ON users (email);
 
--- =====================================================
--- 2. TABELA: categories
--- Categorias dos exercícios (ex: Mobilidade, Equilíbrio)
--- =====================================================
 CREATE TABLE IF NOT EXISTS categories (
     id              UUID            PRIMARY KEY DEFAULT uuid_generate_v4(),
     name            VARCHAR(80)     NOT NULL UNIQUE,
     description     VARCHAR(255)
 );
 
--- =====================================================
--- 3. TABELA: exercises
--- Catálogo de exercícios disponíveis no sistema.
--- Contém ângulos-alvo e landmarks para detecção de pose.
--- =====================================================
 CREATE TABLE IF NOT EXISTS exercises (
     id                  UUID            PRIMARY KEY DEFAULT uuid_generate_v4(),
     category_id         UUID            NOT NULL REFERENCES categories(id),
@@ -60,11 +31,6 @@ CREATE TABLE IF NOT EXISTS exercises (
     active              BOOLEAN         NOT NULL DEFAULT TRUE
 );
 
--- =====================================================
--- 4. TABELA: activity_logs
--- Registro de cada sessão de exercício realizada pelo
--- usuário, contendo métricas de desempenho.
--- =====================================================
 CREATE TABLE IF NOT EXISTS activity_logs (
     id                  UUID            PRIMARY KEY DEFAULT uuid_generate_v4(),
     user_id             UUID            NOT NULL REFERENCES users(id),
@@ -77,11 +43,6 @@ CREATE TABLE IF NOT EXISTS activity_logs (
     duration_seconds    INTEGER         NOT NULL DEFAULT 0
 );
 
--- =====================================================
--- 5. TABELA: posture_alerts
--- Alertas de postura gerados durante a execução de um
--- exercício quando o ângulo detectado diverge do esperado.
--- =====================================================
 CREATE TABLE IF NOT EXISTS posture_alerts (
     id                  UUID            PRIMARY KEY DEFAULT uuid_generate_v4(),
     user_id             UUID            NOT NULL REFERENCES users(id),
@@ -93,11 +54,6 @@ CREATE TABLE IF NOT EXISTS posture_alerts (
     occurred_at         TIMESTAMPTZ     NOT NULL DEFAULT NOW()
 );
 
--- =====================================================
--- DADOS INICIAIS (Seed) - Categorias e Exercícios
--- =====================================================
-
--- Inserir categorias iniciais
 INSERT INTO categories (id, name, description) VALUES
     (uuid_generate_v4(), 'Mobilidade', 'Exercicios leves para melhorar movimento e flexibilidade.'),
     (uuid_generate_v4(), 'Fortalecimento', 'Exercicios de baixo impacto para ganho de forca.'),

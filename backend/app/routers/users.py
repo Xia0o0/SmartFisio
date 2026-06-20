@@ -22,6 +22,11 @@ def list_users(db: Session = Depends(get_db)) -> list[models.User]:
     return db.query(models.User).order_by(models.User.name).all()
 
 
+@router.get("/patients", response_model=list[schemas.UserOut], dependencies=[Depends(require_admin)])
+def list_patients(db: Session = Depends(get_db)) -> list[models.User]:
+    return db.query(models.User).filter(models.User.role == "IDOSO").order_by(models.User.name).all()
+
+
 @router.get("/{user_id}/stats", response_model=schemas.UserStatsOut)
 def get_user_stats(
     user_id: uuid.UUID,
