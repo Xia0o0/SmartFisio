@@ -15,7 +15,6 @@ JsonType = JSON().with_variant(JSONB(), "postgresql")
 def utc_now() -> datetime:
     return datetime.now(timezone.utc)
 
-##talvez tenha que alterar os tipos e/ou valores default de alguns campos caso n esteja de acordo com o banco de dados, mas isso pode ser ajustado depois
 class User(Base): 
     __tablename__ = "users"
 

@@ -2,7 +2,6 @@ from sqlalchemy.orm import Session
 
 from app import models
 
-##alguns exercicios iniciais para teste, podem ser expandidos depois
 def seed_initial_data(db: Session) -> None:
     if db.query(models.Category).count() > 0:
         return
