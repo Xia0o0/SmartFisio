@@ -1,0 +1,258 @@
+/* ===========================
+   EXERCISE PLAYER PAGE
+   =========================== */
+
+.player-page {
+  min-height: 100vh;
+  background: var(--bg-dark);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Header ── */
+.player-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 32px;
+  background: rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.player-back {
+  background: rgba(255,255,255,0.08);
+  border: none;
+  color: rgba(255,255,255,0.6);
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.player-back:hover {
+  background: rgba(255,255,255,0.15);
+  color: white;
+}
+
+.player-header__info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.player-header__info h2 {
+  color: var(--text-on-dark);
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+}
+
+.player-timer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 100px;
+  padding: 10px 20px;
+  color: var(--text-on-dark);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Body (Split Screen) ── */
+.player-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  flex: 1;
+  gap: 0;
+}
+
+.player-panel {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.player-panel--guide {
+  border-right: 1px solid rgba(255,255,255,0.06);
+}
+
+.panel-title {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--text-on-dark);
+  letter-spacing: -0.02em;
+}
+
+/* Guide Panel */
+.guide-video-wrap {
+  position: relative;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  height: 320px;
+}
+
+.guide-video-placeholder {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.guide-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.7);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+}
+
+.guide-instructions {
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--border-radius-sm);
+  padding: 20px;
+}
+
+.guide-instructions p {
+  color: rgba(255,255,255,0.7);
+  font-size: var(--font-size-sm);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.guide-tips {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.guide-tips li {
+  color: rgba(255,255,255,0.6);
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
+}
+
+/* Camera Panel */
+.camera-permission-card {
+  flex: 1;
+  background: rgba(255,255,255,0.04);
+  border-radius: var(--border-radius-lg);
+  border: 2px dashed rgba(255,255,255,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 32px;
+  text-align: center;
+  gap: 16px;
+}
+
+.camera-permission-icon {
+  font-size: 64px;
+  margin-bottom: 8px;
+}
+
+.camera-permission-card h4 {
+  font-size: var(--font-size-xl);
+  color: var(--text-on-dark);
+}
+
+.camera-permission-card p {
+  font-size: var(--font-size-base);
+  color: rgba(255,255,255,0.5);
+  line-height: 1.6;
+  max-width: 360px;
+}
+
+.camera-error {
+  color: var(--color-danger);
+  font-size: var(--font-size-sm);
+  margin-top: 8px;
+}
+
+.camera-wrap {
+  position: relative;
+  flex: 1;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  background: #000;
+  min-height: 320px;
+}
+
+.camera-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1);
+}
+
+.camera-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1);
+}
+
+.posture-feedback {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  border-radius: 100px;
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  backdrop-filter: blur(8px);
+  white-space: nowrap;
+  transition: var(--transition);
+}
+
+/* Stats */
+.player-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.stat-box {
+  background: rgba(255,255,255,0.06);
+  border-radius: var(--border-radius-sm);
+  padding: 16px;
+  text-align: center;
+}
+
+.stat-label {
+  display: block;
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.4);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.stat-value {
+  display: block;
+  font-size: var(--font-size-3xl);
+  font-weight: 900;
+  color: var(--text-on-dark);
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .player-body { grid-template-columns: 1fr; }
+  .player-panel--guide { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
+}

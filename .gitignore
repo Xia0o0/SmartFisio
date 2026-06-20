@@ -137,3 +137,23 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.ipynb_checkpoints/
+
+# Database
+*.db
+backend/smartfisio.db
+
+# IDEs
+.idea/
+.vscode/
+
+# Agents and workspace configs
+.agents/
